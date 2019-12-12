@@ -2,7 +2,18 @@ import configparser
 from termcolor import colored
 import os
 import sys
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-script', type=str, default='record.txt')
+parser.add_argument('-mode', type=int, default=-1)
+parser.add_argument('-port', type=str, default='')
+parser.add_argument('-repeat', type=int, default=-1)
+parser.add_argument('-delay', type=float, default=-1)
+
+args = parser.parse_args()
+
+print(args)
 
 class JoyconConfig:
 
@@ -16,7 +27,11 @@ class JoyconConfig:
         self.allowed_apps = self.config["Girlfriend"]["keyboard_apps"].split(
             ",")
         self.gamepad_pointer = int(self.config["Girlfriend"]["gamepad_pointer"])
-        self.port = self.config["Girlfriend"]["port"]
+        self.port = self.config["Girlfriend"]["port"] if args.port == '' else args.port
+        self.script = args.script
+        self.mode = self.config["Girlfriend"]["mode"] if args.mode == -1 else args.mode
+        self.script_repeat = 999999999999999999999999 if args.repeat == -1 else args.repeat
+        self.start_delay = args.delay
 
     def get_config(self, section: str, key: str):
         return self.config[section][key]

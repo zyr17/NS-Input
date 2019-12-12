@@ -109,6 +109,7 @@ def send_packet(packet=[0x00, 0x00, 0x08, 0x80, 0x80, 0x80, 0x80, 0x00],
 
         # Wait for USB ACK or UPDATE NACK
         byte_in = read_byte()
+        #print(byte_in, bytes_out)
         commandSuccess = (byte_in == RESP_USB_ACK)
     else:
         commandSuccess = True
@@ -164,6 +165,7 @@ def force_sync():
         if byte_in == RESP_SYNC_1:
             write_byte(COMMAND_SYNC_2)
             byte_in = read_byte()
+            #print(byte_in)
             if byte_in == RESP_SYNC_OK:
                 inSync = True
     return inSync

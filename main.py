@@ -75,28 +75,32 @@ def perform_a_press(button):
 def run_pointer_line(line):
     button_event = line[0]
     button = line[1]
-    if button_event == "PRESS":
-        joycon.press(button, float(line[2]), float(line[3]))
+    if button_event == "DELAY":
+        pass
+    elif button_event == "PRESS":
+        joycon.press(button, line[2], line[3])
     else:
         joycon.release(button)
 
 
 def run_auto_py():
     if GIRL_MODE == REPLAY:
-        global pointer_line, time_elapsed, base_time
+        global pointer_line, time_elapsed, base_time, script_repeat
         keyboard_manager.enable_keyboard = False
-        line = lines[pointer_line].strip("\n").split(" ")
-        if pointer_line == 0:
-            expected_time = 0
-        elif len(line) < 4:
+        line = lines[pointer_line]
+        if len(line) < 4:
             expected_time = line[2]
         else:
             expected_time = line[4]
-        if time_elapsed >= float(expected_time):
-            run_pointer_line(line)
+        if time_elapsed >= expected_time:
             pointer_line += 1
             if pointer_line > len(lines) - 1:
                 pointer_line = 0
+                script_repeat += 1
+                print('script has run %d times' % script_repeat)
+            if script_repeat < joycon_config.script_repeat:
+                run_pointer_line(lines[pointer_line])
+            if pointer_line == 0:
                 time.sleep(1)
             time_elapsed = 0
 
@@ -170,6 +174,41 @@ keyboard_listener = keyboard.Listener(
     on_release=on_release)
 keyboard_listener.start()
 
+def expandscript(filename):
+    if not os.path.exists(filename):
+        print('%s not found!' % filename)
+        exit(0)
+    lines = open(filename).readlines()
+    res = []
+    for line in lines:
+        line = line.strip()
+        if line[:7] == 'SCRIPT ':
+            res += expandscript(line[7:])
+        elif line[:5] == 'PRESS':
+            number = ''
+            while line[-1] != ' ':
+                number = line[-1] + number
+                line = line[:-1]
+            number = float(number)
+            action_per_second = 50
+            for i in range(int(number * action_per_second) - 1):
+                res.append(line + '%f' % (1 / action_per_second))
+            res.append(line + str(number - int(number * action_per_second - 1) / action_per_second))
+        else:
+            res.append(line)
+    split = []
+    for line in res:
+        line = line.strip().split(' ')
+        for i in range(2, len(line)):
+            line[i] = float(line[i])
+        split.append(line)
+    res = split
+    return res
+
+lines = expandscript(joycon_config.script)
+if joycon_config.start_delay != -1:
+    lines = [['DELAY', 'DELAY', joycon_config.start_delay]] + lines
+'''
 lines = []
 try:
     f = open("record.txt", "r")
@@ -178,10 +217,12 @@ except:
 for fi in f:
     lines.append(fi)
 f.close()
-
+'''
 pointer_line = 0
 obs_focused = True
 time_elapsed = 0
+script_repeat = 0
+run_pointer_line(lines[pointer_line])
 base_time = time.time()
 if enable_gamepad:
     gamepad = gamepads[joycon_config.gamepad_pointer]
@@ -197,6 +238,8 @@ while running:
     time_elapsed += delta_time
     base_time = current_time
     run_auto_py()
+    if script_repeat == joycon_config.script_repeat:
+        running = False
 
     if GIRL_MODE == NORMAL:
 

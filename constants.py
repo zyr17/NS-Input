@@ -14,7 +14,7 @@ CENTER_Y = int(joycon_config.get_config("Position", "window_y"))
 NORMAL = 0
 RECORD = 1
 REPLAY = 2
-GIRL_MODE = int(joycon_config.get_config("Girlfriend", "mode"))
+GIRL_MODE = int(joycon_config.mode)
 MOUSE_DEADZONE = 2
 if GIRL_MODE == RECORD:
     TICK = 100

@@ -22,8 +22,8 @@ class JoyconButton:
         return self.identifier
 
     def press(self) -> bool:
-        print(colored(f"[{self.identifier}] pressed", "green"))
         if not self.is_pressed:
+            print(colored(f"[{self.identifier}] pressed", "green"))
             self.is_pressed = True
             return True
         return False
@@ -86,21 +86,28 @@ class JoyconManager:
         self.girls["R_STICK"] = JoyconStick("R_STICK", 0)
         self.girls["L_STICK"] = JoyconStick("L_STICK", 0)
         self.do_record = int(mode) == 1
-        print(self.do_record)
+        print('Do Record: ', self.do_record)
         self.timestamp = time.time()
         self.f_list = []
+        self.last_option = 'DELAY DELAY %.5f\n'
 
     def _record_press(self, button: str, x: float, y: float):
         if self.do_record:
-            self.f_list.append(
-                f"PRESS {button} {x} {y} {round(time.time() - self.timestamp, 5)}\n")
+            line = f"PRESS {button} {x} {y} %.5f\n"
+            if self.last_option == line:
+                return
+            self.f_list.append(self.last_option % round(time.time() - self.timestamp, 5))
             self.timestamp = time.time()
+            self.last_option = line
 
     def _record_release(self, button: str):
         if self.do_record:
-            self.f_list.append(
-                f"RELEASE {button} {round(time.time() - self.timestamp, 5)}\n")
+            line = f"RELEASE {button} %.5f\n"
+            if self.last_option == line:
+                return
+            self.f_list.append(self.last_option % round(time.time() - self.timestamp, 5))
             self.timestamp = time.time()
+            self.last_option = line
 
     def press(self, button: str, x: float = 0.0, y: float = 0.0):
         self.girls[button].update(x, y)
@@ -130,8 +137,9 @@ class JoyconManager:
             self.girls[key] = JoyconButton(key, value)
 
     def close(self):
+        self._record_release('ENDRECORD')
         if self.do_record:
             f = open("record.txt", "w+")
-            for line in self.f_list:
+            for line in self.f_list[:]:
                 f.write(line)
             f.close()
