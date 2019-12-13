@@ -173,21 +173,30 @@ keyboard_listener = keyboard.Listener(
 keyboard_listener.start()
 
 def expandscript(filename):
-    if not os.path.exists(filename):
-        print('%s not found!' % filename)
-        exit(0)
-    folder = filename
-    while len(folder) > 0 and folder[-1] != '/' and folder[-1] != '\\':
-        folder = folder[:-1]
-    print(folder, filename)
-    lines = open(filename).readlines()
+    if filename[0] == '/' and filename[-1] == '/':
+        lines = filename[1:-1].split('\n')
+    else:
+        if not os.path.exists(filename):
+            print('%s not found!' % filename)
+            exit(0)
+        folder = filename
+        while len(folder) > 0 and folder[-1] != '/' and folder[-1] != '\\':
+            folder = folder[:-1]
+        #print(folder, filename)
+        lines = open(filename).readlines()
     res = []
     for line in lines:
         line = line.strip()
         if len(line) == 0 or line[0] == '#':
             pass
         elif line[:7] == 'SCRIPT ':
-            res += expandscript(folder + line[7:])
+            repeats = 0
+            line = line[7:]
+            while line[0] != ' ':
+                repeats = repeats * 10 + int(line[0])
+                line = line[1:]
+            for _ in range(repeats):
+                res += expandscript(folder + line[1:])
         elif line[:5] == 'PRESS':
             number = ''
             while line[-1] != ' ':
