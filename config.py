@@ -4,13 +4,19 @@ import os
 import sys
 import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-script', type=str, default='record.txt')
-parser.add_argument('-mode', type=int, default=-1)
-parser.add_argument('-port', type=str, default='')
-parser.add_argument('-repeat', type=int, default=-1)
-parser.add_argument('-delay', type=float, default=-1)
-parser.add_argument('-repeat_delay', type=float, default=1)
+parser = argparse.ArgumentParser('Send commands through UNO R3 to control switch. Arguments in command line will overwrite settings in gamepad.ini, such as mode, port, etc.')
+parser.add_argument('-script', type=str, default='record.txt',
+    help='which script to run, default is record.txt. see project README for advanced use.')
+parser.add_argument('-mode', type=int, default=-1,
+    help='choose mode. 0=streaming, 1=record, 2=replay, record will save in record.txt.')
+parser.add_argument('-port', type=str, default='',
+    help='UART port name')
+parser.add_argument('-repeat', type=int, default=-1,
+    help='how many times to run the script, default is unlimited.')
+parser.add_argument('-delay', type=float, default=-1,
+    help='seconds to delay before running the script.')
+parser.add_argument('-repeat_delay', type=float, default=1,
+    help='seconds to delay after running the script.')
 
 args = parser.parse_args()
 
