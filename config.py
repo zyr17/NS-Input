@@ -10,6 +10,7 @@ parser.add_argument('-mode', type=int, default=-1)
 parser.add_argument('-port', type=str, default='')
 parser.add_argument('-repeat', type=int, default=-1)
 parser.add_argument('-delay', type=float, default=-1)
+parser.add_argument('-repeat_delay', type=float, default=1)
 
 args = parser.parse_args()
 
@@ -32,6 +33,7 @@ class JoyconConfig:
         self.mode = self.config["Girlfriend"]["mode"] if args.mode == -1 else args.mode
         self.script_repeat = 999999999999999999999999 if args.repeat == -1 else args.repeat
         self.start_delay = args.delay
+        self.repeat_delay = args.repeat_delay
 
     def get_config(self, section: str, key: str):
         return self.config[section][key]

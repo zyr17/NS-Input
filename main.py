@@ -100,8 +100,6 @@ def run_auto_py():
                 print('script has run %d times' % script_repeat)
             if script_repeat < joycon_config.script_repeat:
                 run_pointer_line(lines[pointer_line])
-            if pointer_line == 0:
-                time.sleep(1)
             time_elapsed = 0
 
 
@@ -178,36 +176,56 @@ def expandscript(filename):
     if not os.path.exists(filename):
         print('%s not found!' % filename)
         exit(0)
+    folder = filename
+    while len(folder) > 0 and folder[-1] != '/' and folder[-1] != '\\':
+        folder = folder[:-1]
+    print(folder, filename)
     lines = open(filename).readlines()
     res = []
     for line in lines:
         line = line.strip()
-        if line[:7] == 'SCRIPT ':
-            res += expandscript(line[7:])
+        if len(line) == 0 or line[0] == '#':
+            pass
+        elif line[:7] == 'SCRIPT ':
+            res += expandscript(folder + line[7:])
         elif line[:5] == 'PRESS':
             number = ''
             while line[-1] != ' ':
                 number = line[-1] + number
                 line = line[:-1]
             number = float(number)
-            action_per_second = 50
+            action_per_second = 25
             for i in range(int(number * action_per_second) - 1):
                 res.append(line + '%f' % (1 / action_per_second))
             res.append(line + str(number - int(number * action_per_second - 1) / action_per_second))
         else:
             res.append(line)
+    return res
+
+def scriptsplit(lines):
     split = []
-    for line in res:
+    for line in lines:
         line = line.strip().split(' ')
         for i in range(2, len(line)):
             line[i] = float(line[i])
         split.append(line)
-    res = split
-    return res
+    return split
 
-lines = expandscript(joycon_config.script)
+lines = []
+for script in joycon_config.script.split(':'):
+    try:
+        repeat = int(script)
+        lines[-1] = lines[-1] * repeat
+    except:
+        lines.append(expandscript(script))
+scripts = []
+for script in lines:
+    scripts += script
+lines = scriptsplit(scripts)
 if joycon_config.start_delay != -1:
     lines = [['DELAY', 'DELAY', joycon_config.start_delay]] + lines
+if joycon_config.repeat_delay != -1:
+    lines += [['DELAY', 'DELAY', joycon_config.repeat_delay]]
 '''
 lines = []
 try:
