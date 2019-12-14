@@ -137,6 +137,7 @@ class JoyconManager:
             self.girls[key] = JoyconButton(key, value)
 
     def close(self):
+        codec.send_cmd(0)
         self._record_release('ENDRECORD')
         if self.do_record:
             f = open("record.txt", "w+")

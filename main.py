@@ -59,8 +59,8 @@ def on_press(key):
 
 
 def quit_me():
-    codec.close()
     joycon.close()
+    codec.close()
     keyboard_listener.stop()
     pg.quit()
     sys.exit()
@@ -172,18 +172,21 @@ keyboard_listener = keyboard.Listener(
     on_release=on_release)
 keyboard_listener.start()
 
-def expandscript(filename):
+def expandscript(filename, folder):
     if filename[0] == '/' and filename[-1] == '/':
-        lines = filename[1:-1].split('\n')
+        lines = filename[1:-1].split('/')
     else:
-        if not os.path.exists(filename):
+        if not os.path.exists(folder + filename):
             print('%s not found!' % filename)
             exit(0)
-        folder = filename
-        while len(folder) > 0 and folder[-1] != '/' and folder[-1] != '\\':
-            folder = folder[:-1]
+        newfolder = filename
+        filename = ''
+        while len(newfolder) > 0 and newfolder[-1] != '/' and newfolder[-1] != '\\':
+            filename = newfolder[-1] + filename
+            newfolder = newfolder[:-1]
+        folder += newfolder
         #print(folder, filename)
-        lines = open(filename).readlines()
+        lines = open(folder + filename).readlines()
     res = []
     for line in lines:
         line = line.strip()
@@ -195,8 +198,9 @@ def expandscript(filename):
             while line[0] != ' ':
                 repeats = repeats * 10 + int(line[0])
                 line = line[1:]
+            line = line[1:]
             for _ in range(repeats):
-                res += expandscript(folder + line[1:])
+                res += expandscript(line, folder)
         elif line[:5] == 'PRESS':
             number = ''
             while line[-1] != ' ':
@@ -226,7 +230,7 @@ for script in joycon_config.script.split(':'):
         repeat = int(script)
         lines[-1] = lines[-1] * repeat
     except:
-        lines.append(expandscript(script))
+        lines.append(expandscript(script, './'))
 scripts = []
 for script in lines:
     scripts += script
