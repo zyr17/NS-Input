@@ -11,9 +11,9 @@ parser.add_argument('-mode', type=int, default=-1,
     help='choose mode. 0=streaming, 1=record, 2=replay, record will save in record.txt.')
 parser.add_argument('-port', type=str, default='',
     help='UART port name')
-parser.add_argument('-repeat', type=int, default=-1,
-    help='how many times to run the script, default is unlimited.')
-parser.add_argument('-delay', type=float, default=-1,
+parser.add_argument('-repeat', type=int, default=1,
+    help='how many times to run the script, default is 1. if set -1, you should input "8" to start next round.')
+parser.add_argument('-delay', type=float, default=0,
     help='seconds to delay before running the script.')
 parser.add_argument('-repeat_delay', type=float, default=1,
     help='seconds to delay after running the script.')
@@ -37,7 +37,7 @@ class JoyconConfig:
         self.port = self.config["Girlfriend"]["port"] if args.port == '' else args.port
         self.script = args.script
         self.mode = self.config["Girlfriend"]["mode"] if args.mode == -1 else args.mode
-        self.script_repeat = 999999999999999999999999 if args.repeat == -1 else args.repeat
+        self.script_repeat = args.repeat
         self.start_delay = args.delay
         self.repeat_delay = args.repeat_delay
 

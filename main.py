@@ -25,7 +25,7 @@ def on_release(key):
 
 
 def on_press(key):
-    global running
+    global running, FORCE_PAUSE
     try:
         key = str.lower(key.char)
         if GIRL_MODE == NORMAL:
@@ -52,13 +52,17 @@ def on_press(key):
                                         HEIGHT, True)
         if key == "6":
             running = False
+        elif key == "8":
+            print('start next round')
+            FORCE_PAUSE = False
     except AttributeError:
-        keyboard_manager.enable_keyboard = True
+        pass
     if obs_focused:
         keyboard_manager.press(key)
 
 
 def quit_me():
+    print('expect time:', expect_time, 'real time:', time.time() - start_time)
     joycon.close()
     codec.close()
     keyboard_listener.stop()
@@ -84,8 +88,12 @@ def run_pointer_line(line):
 
 
 def run_auto_py():
+    global FORCE_PAUSE, time_elapsed
+    if FORCE_PAUSE:
+        time_elapsed = 0
+        return
     if GIRL_MODE == REPLAY:
-        global pointer_line, time_elapsed, base_time, script_repeat
+        global pointer_line, base_time, script_repeat
         keyboard_manager.enable_keyboard = False
         line = lines[pointer_line]
         if len(line) < 4:
@@ -98,7 +106,9 @@ def run_auto_py():
                 pointer_line = 0
                 script_repeat += 1
                 print('script has run %d times' % script_repeat)
-            if script_repeat < joycon_config.script_repeat:
+                if joycon_config.repeat_delay == -1:
+                    FORCE_PAUSE = True
+            if script_repeat < joycon_config.script_repeat and not FORCE_PAUSE:
                 run_pointer_line(lines[pointer_line])
             time_elapsed = 0
 
@@ -235,10 +245,13 @@ scripts = []
 for script in lines:
     scripts += script
 lines = scriptsplit(scripts)
-if joycon_config.start_delay != -1:
-    lines = [['DELAY', 'DELAY', joycon_config.start_delay]] + lines
+lines = [['DELAY', 'DELAY', joycon_config.start_delay]] + lines
 if joycon_config.repeat_delay != -1:
     lines += [['DELAY', 'DELAY', joycon_config.repeat_delay]]
+expect_time = sum([x[-1] for x in lines]) + len(lines) * 0.25 / TICK
+print('scripts loaded! repeat time: %d, expect running time for one run: %f' % (joycon_config.script_repeat, expect_time))
+if GIRL_MODE != REPLAY:
+    print("but not in replay mode, script won't run.")
 '''
 lines = []
 try:
@@ -262,6 +275,7 @@ if GIRL_MODE != NORMAL:
     keyboard_manager.enable_keyboard = True
     enable_gamepad = False
 
+start_time = time.time()
 while running:
     clock.tick(TICK)
     current_time = time.time()
@@ -274,7 +288,7 @@ while running:
 
     if GIRL_MODE == NORMAL:
 
-        if COUNTING == 25:
+        if COUNTING == TICK / 4:
             refresh_focused_window()
 
         if COUNTING == TICK * 3:

@@ -15,6 +15,7 @@ NORMAL = 0
 RECORD = 1
 REPLAY = 2
 GIRL_MODE = int(joycon_config.mode)
+FORCE_PAUSE = False
 MOUSE_DEADZONE = 2
 if GIRL_MODE == RECORD:
     TICK = 100
