@@ -53,7 +53,7 @@ def on_press(key):
         if key == "6":
             running = False
         elif key == "8":
-            print('start next round')
+            print('resume script')
             FORCE_PAUSE = False
     except AttributeError:
         pass
@@ -77,10 +77,14 @@ def perform_a_press(button):
 
 
 def run_pointer_line(line):
+    global FORCE_PAUSE
     button_event = line[0]
     button = line[1]
     if button_event == "DELAY":
         pass
+    elif button_event == "PAUSE":
+        FORCE_PAUSE = True
+        print('script paused!')
     elif button_event == "PRESS":
         joycon.press(button, line[2], line[3])
     else:
@@ -248,7 +252,7 @@ lines = scriptsplit(scripts)
 lines = [['DELAY', 'DELAY', joycon_config.start_delay]] + lines
 if joycon_config.repeat_delay != -1:
     lines += [['DELAY', 'DELAY', joycon_config.repeat_delay]]
-expect_time = sum([x[-1] for x in lines]) + len(lines) * 0.25 / TICK
+expect_time = (sum([x[-1] for x in lines]) + len(lines) * 0.25 / TICK) * joycon_config.script_repeat
 print('scripts loaded! repeat time: %d, expect running time for one run: %f' % (joycon_config.script_repeat, expect_time))
 if GIRL_MODE != REPLAY:
     print("but not in replay mode, script won't run.")
