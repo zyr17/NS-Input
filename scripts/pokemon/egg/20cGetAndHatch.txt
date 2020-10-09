@@ -1,0 +1,56 @@
+#get about 30 eggs and hatch all, then go to next page
+#start road 5 bridge NPC left facing him, not on bike, with only one pokemon which has flame body
+#menu cursor on pokemon, box cursor in a empty box / box with only pokemons or same egg cycle eggs
+#previous box has 5 pokemons in the first column
+#egg house has 2 not same kind, different language pokemons. otherwise change getEggs repeat time
+
+#move 5 pokemons in previous box to fill hand
+SCRIPT 1 ../box/intoBox.txt
+PRESS L 0 0 0.1
+RELEASE L 0.5
+SCRIPT 2 /PRESS Y 0 0 0.1/RELEASE Y 0.1/
+SCRIPT 1 ../box/selectLine.txt
+PRESS DPAD_L 0 0 0.1
+RELEASE DPAD_L 0.1
+PRESS DPAD_D 0 0 0.1
+RELEASE DPAD_D 0.1
+PRESS A 0 0 0.1
+RELEASE A 0.3
+PRESS DPAD_R 0 0 0.1
+RELEASE DPAD_R 0.1
+PRESS R 0 0 0.1
+RELEASE R 0.5
+SCRIPT 1 ../box/outBox.txt
+
+#get eggs. for 79.5%, 34 times will get about 30 eggs
+#it's fine to get more or less eggs, script only breaks when last round get less than 25 eggs
+#and make next round can't fill hand
+SCRIPT 34 getEggs.txt
+
+#put pokemons in hand back to previous box
+SCRIPT 1 ../box/intoBox.txt
+PRESS L 0 0 0.1
+RELEASE L 0.5
+SCRIPT 2 /PRESS Y 0 0 0.1/RELEASE Y 0.1/
+PRESS DPAD_L 0 0 0.1
+RELEASE DPAD_L 0.1
+PRESS DPAD_D 0 0 0.1
+RELEASE DPAD_D 0.1
+SCRIPT 1 ../box/selectLine.txt
+PRESS DPAD_U 0 0 0.1
+RELEASE DPAD_U 0.1
+PRESS DPAD_R 0 0 0.1
+RELEASE DPAD_R 0.1
+PRESS A 0 0 0.1
+RELEASE A 0.3
+PRESS R 0 0 0.1
+RELEASE R 0.5
+SCRIPT 1 ../box/outBox.txt
+
+#go to start bush, hatch eggs, go back
+SCRIPT 1 NPC2Bush.txt
+SCRIPT 1 ../box/intoBox.txt
+SCRIPT 2 /PRESS Y 0 0 0.1/RELEASE Y 0.1/
+SCRIPT 1 hatchEgg20c.txt
+SCRIPT 1 ../box/outBox.txt
+SCRIPT 1 Bush2NPC.txt

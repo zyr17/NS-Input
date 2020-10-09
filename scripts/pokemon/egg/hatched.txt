@@ -1,0 +1,15 @@
+#5 eggs in hand has hatched. hatched when on bike
+
+#hatch first egg
+SCRIPT 1 hatchedOneEgg.txt
+
+#go walk
+PRESS MINUS 0 0 0.1
+RELEASE MINUS 0.9
+
+#4 other eggs
+SCRIPT 4 hatchedOneEgg.txt
+
+#on bike
+PRESS MINUS 0 0 0.1
+RELEASE MINUS 0.9

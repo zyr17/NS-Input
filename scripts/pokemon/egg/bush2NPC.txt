@@ -1,0 +1,12 @@
+#from hatch egg start bush to get egg NPC
+#start on bike
+
+SCRIPT 1 ../bike/runLeftBridge.txt
+
+PRESS MINUS 0 0 0.1
+RELEASE MINUS 0.4
+
+PRESS L_STICK 0 -1 0.9
+RELEASE L_STICK 0.1
+
+SCRIPT 1 getEggsRight.txt

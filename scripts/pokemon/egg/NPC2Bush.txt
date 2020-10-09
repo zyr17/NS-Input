@@ -1,0 +1,9 @@
+#from NPC to hatch egg start bush
+#start not on bike
+
+PRESS L_STICK 0 1 0.4
+RELEASE L_STICK 0.1
+PRESS MINUS 0 0 0.2
+RELEASE MINUS 0.5
+
+SCRIPT 1 ../bike/runRightBridge.txt

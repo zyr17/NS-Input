@@ -1,0 +1,19 @@
+#part of getEggs.txt
+
+#face right, ride bike
+PRESS L_STICK 1 0 0.1
+RELEASE L_STICK 0.3
+PRESS MINUS 0 0 0.2
+RELEASE MINUS 0.3
+
+#move right
+PRESS L_STICK 1 0 6.8
+RELEASE L_STICK 0.3
+
+#slightly change position
+PRESS MINUS 0 0 0.2
+RELEASE MINUS 0.3
+PRESS L_STICK 1 -1 1.0
+RELEASE L_STICK 0.3
+PRESS L_STICK 1 0 0.2
+RELEASE L_STICK 0.3

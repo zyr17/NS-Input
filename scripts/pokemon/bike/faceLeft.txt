@@ -1,0 +1,9 @@
+#face left on bike with little move
+#should on bike
+
+PRESS PLUS 0.0 0.0 0.2
+RELEASE PLUS 0.5
+PRESS L_STICK -1 0 0.1
+RELEASE L_STICK 0.2
+PRESS PLUS 0.0 0.0 0.2
+RELEASE PLUS 0.5

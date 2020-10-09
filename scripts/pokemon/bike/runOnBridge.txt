@@ -1,0 +1,8 @@
+#run on birdge on road 5 one cycle
+#start from bridge right bush down over the rock, on bike
+#one cycle is about 11 egg cycle, 2800 foot (with flame body)
+#for example, 20 egg cycle Milcery = run script 2 times
+
+SCRIPT 1 RunLeftBridge.txt
+
+SCRIPT 1 RunRightBridge.txt

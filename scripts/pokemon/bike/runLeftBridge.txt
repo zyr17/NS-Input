@@ -1,0 +1,9 @@
+#first part of runOnBridge.txt
+
+SCRIPT 1 faceLeft.txt
+
+#go left 15s, try activate rotom boost every second
+#should upgrade boost to max
+PRESS L_STICK -1 0 1
+SCRIPT 14 /PRESS L 0.0 0.0 0.1/RELEASE L 0.9/
+RELEASE L_STICK 0.5

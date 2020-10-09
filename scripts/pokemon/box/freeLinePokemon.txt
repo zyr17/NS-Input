@@ -1,0 +1,6 @@
+#mercilessly free 6 pokemons in a line
+#should put cursor on left
+
+SCRIPT 5 /SCRIPT 1 freeOnePokemon.txt/PRESS DPAD_R 0 0 0.1/RELEASE DPAD_R 0.1/
+SCRIPT 1 freeOnePokemon.txt
+SCRIPT 5 /PRESS DPAD_L 0 0 0.1/RELEASE DPAD_L 0.1/

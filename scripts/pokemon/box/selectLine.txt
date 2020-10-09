@@ -1,0 +1,8 @@
+#select vertical pokemons in box
+#GREEN cursor on line top, and should have pokemon in that top cell
+
+PRESS A 0 0 0.1
+RELEASE A 0 0 0.1
+SCRIPT 4 /PRESS DPAD_D 0 0 0.1/RELEASE DPAD_D 0.1/
+PRESS A 0 0 0.1
+RELEASE A 0 0 0.1

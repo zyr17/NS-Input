@@ -1,0 +1,24 @@
+#run between feeder and NPC on bridge on road 5
+#start from NPC on bridge, face right, not on bike, with 6 pokemon
+#may not get egg successfully every time, but won't crash script
+
+#face left, ride bike
+PRESS L_STICK -1 0 0.1
+RELEASE L_STICK 0.3
+PRESS MINUS 0 0 0.2
+RELEASE MINUS 0.5
+
+#move left
+PRESS L_STICK -1 0 6.8
+RELEASE L_STICK 0.3
+
+#slightly change position to ensure that can talk with feeder
+PRESS MINUS 0 0 0.2
+RELEASE MINUS 0.3
+PRESS L_STICK -1 -1 0.5
+RELEASE L_STICK 0.3
+
+#talk with feeder
+SCRIPT 1 talkToFeeder.txt
+
+SCRIPT 1 getEggsRight.txt

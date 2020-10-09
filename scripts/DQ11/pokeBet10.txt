@@ -1,0 +1,10 @@
+#try win 10 times in poker. start with cards selection.
+#CAUTION! will lose in all times, sit in 1 coin table and make sure have enough coins to lose
+#low efficiency, may take several days
+
+#down to fapai
+PRESS DPAD_D 0 0 0.1
+RELEASE DPAD_D 0.1
+
+#press A for 1 minute, make sure go to round 10 or lose
+SCRIPT 300 /PRESS A 0 0 0.1/RELEASE A 0.1/

@@ -1,0 +1,8 @@
+#mercilessly free 30 pokemons in a box, and go to next box.
+#should put cursor on top left. make sure the box is full
+
+SCRIPT 4 /SCRIPT 1 freeLinePokemon.txt/PRESS DPAD_D 0 0 0.1/RELEASE DPAD_D 0.1/
+SCRIPT 1 freeLinePokemon.txt
+SCRIPT 4 /PRESS DPAD_U 0 0 0.1/RELEASE DPAD_U 0.1/
+PRESS R 0 0 0.1
+RELEASE R 0.5

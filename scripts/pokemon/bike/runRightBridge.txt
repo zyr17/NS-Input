@@ -1,0 +1,8 @@
+#second part of runOnBridge.txt. also used for back to start point after hatch. 
+
+SCRIPT 1 faceRight.txt
+
+#go right 16s to make sure stuck in bush
+PRESS L_STICK 1 0 1
+SCRIPT 15 /PRESS L 0.0 0.0 0.1/RELEASE L 0.9/
+RELEASE L_STICK 0.5
