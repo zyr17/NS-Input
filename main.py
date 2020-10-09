@@ -252,7 +252,7 @@ lines = scriptsplit(scripts)
 lines = [['DELAY', 'DELAY', joycon_config.start_delay]] + lines
 if joycon_config.repeat_delay != -1:
     lines += [['DELAY', 'DELAY', joycon_config.repeat_delay]]
-expect_time = (sum([x[-1] for x in lines]) + len(lines) * 0.25 / TICK) * joycon_config.script_repeat
+expect_time = (sum([x[-1] for x in lines]) + len(lines) * 0.4 / TICK) * joycon_config.script_repeat
 print('scripts loaded! repeat time: %d, expect running time for one run: %f' % (joycon_config.script_repeat, expect_time))
 if GIRL_MODE != REPLAY:
     print("but not in replay mode, script won't run.")
