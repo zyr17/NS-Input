@@ -1,0 +1,16 @@
+# remove all items on pokemons in the current box
+
+# all pokemons should have item
+# start on the box, red cursor on top left
+# when finish, will move to next box, and cursor on top left
+
+PRESS X 0.0 0.0 0.1
+RELEASE X 0.2
+
+SCRIPT 5 removeItemsLine.txt
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS R 0.0 0.0 0.1
+RELEASE R 1

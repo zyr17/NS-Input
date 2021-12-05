@@ -1,0 +1,9 @@
+# copy a box, and get all items, and save data
+
+# all pokemon should have item, in open world, and unlikely to talk/goto house.
+# recommendation: hearthome city, on the right of PC, has an area surrounded by
+# bushes on three direction. 
+
+SCRIPT 1 boxCopy.txt
+SCRIPT 1 getCopiedItems.txt
+SCRIPT 1 ../save.txt

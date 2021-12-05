@@ -1,0 +1,25 @@
+# get copied items from copied box
+
+# all pokemons should have item
+# start on out world, menu cursor on pokemon
+# box on the one on the right of copied box (source box)
+
+# it will remove all items from copied box, and remains all other things unchanged
+
+# go to box
+PRESS X 0.0 0.0 0.1
+RELEASE X 1
+PRESS A 0.0 0.0 0.1
+RELEASE A 1.5
+PRESS R 0.0 0.0 0.1
+RELEASE R 2
+
+# go left
+PRESS L 0.0 0.0 0.1
+RELEASE L 1
+
+# get items
+SCRIPT 1 ../box/removeItems.txt
+
+# back
+SCRIPT 25 /PRESS B 0.0 0.0 0.1/RELEASE B 0.1/

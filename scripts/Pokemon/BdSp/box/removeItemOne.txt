@@ -1,0 +1,18 @@
+# remove item on the current pokemon
+
+# pokemon should have item
+# start on the box, red cursor, item mode
+# when finish, cursor will move to pokemon on the right
+
+PRESS A 0.0 0.0 0.1
+RELEASE A 0.2
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS A 0.0 0.0 0.2
+RELEASE A 0.3
+PRESS A 0.0 0.0 0.2
+RELEASE A 0.3
+PRESS A 0.0 0.0 0.2
+RELEASE A 0.5
+PRESS L_STICK 1 0 0.1
+RELEASE L_STICK 0.25

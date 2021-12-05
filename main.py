@@ -18,7 +18,7 @@ import pygame as pg
 def on_release(key):
     try:
         key = str.lower(key.char)
-    except AttributeError:
+    except (AttributeError, TypeError):
         pass
     if obs_focused:
         keyboard_manager.release(key)
@@ -55,7 +55,7 @@ def on_press(key):
         elif key == "8":
             print('resume script')
             FORCE_PAUSE = False
-    except AttributeError:
+    except (AttributeError, TypeError):
         pass
     if obs_focused:
         keyboard_manager.press(key)

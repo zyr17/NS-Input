@@ -1,0 +1,103 @@
+# forbidden: copy entire box
+
+# stand on a position with no grass or NPC around, and not on bike
+# menu cursor on pokemon, box on the one that want to copy
+# it will copy entire box to the box on its left
+
+DELAY DELAY 0.1
+
+# go to pokemon detail
+PRESS X 0.0 0.0 0.1
+RELEASE X 1
+PRESS A 0.0 0.0 0.1
+RELEASE A 1.5
+PRESS A 0.0 0.0 0.1
+RELEASE A 0.5
+PRESS A 0.0 0.0 0.1
+RELEASE A 1.5
+
+# double trigger menu
+PRESS ZL 0.0 0.0 0.08
+PRESS A 0.0 0.0 0.1
+RELEASE A 0.05
+PRESS ZL 0.0 0.0 0.05
+RELEASE ZL 1.5
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1.5
+
+# go to box and move to thrid pokemon on the first row
+PRESS A 0.0 0.0 0.1
+RELEASE A 1.5
+PRESS R 0.0 0.0 0.1
+RELEASE R 2
+PRESS L_STICK 1 0 0.1
+RELEASE L_STICK 0.25
+PRESS L_STICK 1 0 0.1
+RELEASE L_STICK 0.25
+
+# trigger menu and go to box again
+PRESS X 0.0 0.0 0.1
+RELEASE X 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS X 0.0 0.0 0.1
+RELEASE X 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS X 0.0 0.0 0.1
+RELEASE X 1
+PRESS A 0.0 0.0 0.1
+RELEASE A 1.5
+PRESS R 0.0 0.0 0.1
+RELEASE R 2
+
+# swap two boxes with Y and back
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS A 0.0 0.0 0.1
+RELEASE A 1
+PRESS Y 0.0 0.0 0.1
+RELEASE Y 0.25
+PRESS L_STICK -1 0 0.1
+RELEASE L_STICK 0.25
+PRESS Y 0.0 0.0 0.1
+RELEASE Y 0.25
+
+# back triggered menu and go to pokemon detail
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 1
+PRESS B 0.0 0.0 0.1
+RELEASE B 0.5
+PRESS A 0.0 0.0 0.1
+RELEASE A 0.25
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25
+PRESS A 0.0 0.0 0.1
+RELEASE A 1.5
+
+# done, now go back to normal
+SCRIPT 25 /PRESS B 0.0 0.0 0.1/RELEASE B 0.1/

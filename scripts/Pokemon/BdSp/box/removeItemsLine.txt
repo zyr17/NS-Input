@@ -1,0 +1,12 @@
+# remove all items on pokemons in the current line
+
+# all pokemons should have item
+# start on the box, red cursor, item mode on left
+# when finish, cursor will move to next line
+
+SCRIPT 6 removeItemOne.txt
+
+PRESS L_STICK 1 0 0.1
+RELEASE L_STICK 0.25
+PRESS L_STICK 0 1 0.1
+RELEASE L_STICK 0.25

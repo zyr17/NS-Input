@@ -12,11 +12,11 @@ parser.add_argument('-mode', type=int, default=-1,
 parser.add_argument('-port', type=str, default='',
     help='UART port name')
 parser.add_argument('-repeat', type=int, default=1,
-    help='how many times to run the script, default is 1. if set -1, you should input "8" to start next round.')
+    help='how many times to run the script, default is 1.')
 parser.add_argument('-delay', type=float, default=0,
     help='seconds to delay before running the script.')
 parser.add_argument('-repeat_delay', type=float, default=1,
-    help='seconds to delay after running the script.')
+    help='seconds to delay after running the script. if set -1, you should input "8" to start next round.')
 
 args = parser.parse_args()
 
